@@ -101,9 +101,9 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         /// <param name="data">The data to be updated</param>
         /// <returns>The updated data</returns>
-        public virtual TData Update(TData data)
+        public virtual TData Update(int id, TData data)
         {
-            return this.repository.Update(data);
+            return this.repository.Update(id, data);
         }
 
         /// <summary>

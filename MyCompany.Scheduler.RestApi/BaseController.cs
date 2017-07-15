@@ -49,6 +49,17 @@ namespace MyCompany.Scheduler.RestApi
             return this.Content(HttpStatusCode.Created, this.Service.Add(data));
         }
 
+        public virtual IHttpActionResult Update(int id, TData data)
+        {
+            return this.Ok(this.Service.Update(id, data));
+        }
+
+        public virtual IHttpActionResult Delete(int id)
+        {
+            this.Service.Remove(id);
+            return this.Ok();
+        }
+        
         /// <summary>
         /// The dispose.
         /// </summary>

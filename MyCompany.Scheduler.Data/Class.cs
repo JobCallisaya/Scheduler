@@ -1,37 +1,37 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Student.cs" company="MyCompany">
+// <copyright file="Class.cs" company="MyCompany">
 //   Copyright (c) MyCompany.
 // </copyright>
 // <summary>
-//   Defines the Student type.
+//   Defines the Class type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace MyCompany.Scheduler.Data
 {
     /// <summary>
-    /// The student.
+    /// The class.
     /// </summary>
-    public class Student
+    public class Class
     {
         /// <summary>
-        /// Gets or sets the id.
+        /// Gets or sets the code.
         /// </summary>
-        public int Id { get; set; }
+        public int Code { get; set; }
 
         /// <summary>
-        /// Gets or sets the first name.
+        /// Gets or sets the title.
         /// </summary>
-        public string FirstName { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the last name.
+        /// Gets or sets the description.
         /// </summary>
-        public string LastName { get; set; }
+        public string Description { get; set; }
 
         public override int GetHashCode()
         {
-            return this.Id;
+            return this.Code;
         }
     }
 }

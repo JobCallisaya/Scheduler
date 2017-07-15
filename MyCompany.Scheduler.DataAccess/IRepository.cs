@@ -60,7 +60,7 @@ namespace MyCompany.Scheduler.DataAccess
             /// </summary>
             /// <param name="data">The data to be updated</param>
             /// <returns>The updated data</returns>
-            TData Update(TData data);
+            TData Update(int id, TData data);
 
             /// <summary>
             /// Removes data from repository

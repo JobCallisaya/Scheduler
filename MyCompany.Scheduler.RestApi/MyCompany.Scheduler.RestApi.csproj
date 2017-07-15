@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClassController.cs" />
     <Compile Include="StudentController.cs" />
   </ItemGroup>
   <ItemGroup>

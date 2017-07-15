@@ -13,7 +13,6 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using System.Reflection;
 
     using global::MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
 
@@ -23,6 +22,9 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
     /// <typeparam name="TData">The data type</typeparam>
     public class MemoryRepository<TData> : IRepository<TData> where TData : class
     {
+        /// <summary>
+        /// The data set.
+        /// </summary>
         private Dictionary<int, TData> dataSet;
 
         /// <summary>
@@ -82,14 +84,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
                 query = query.Where(filter);
             }
 
-            if (orderBy != null)
-            {
-                result = orderBy(query).ToList();
-            }
-            else
-            {
-                result = query.ToList();
-            }
+            result = orderBy != null ? orderBy(query).ToList() : query.ToList();
 
             return result;
         }
@@ -111,12 +106,11 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// </summary>
         /// <param name="data">The data to be updated</param>
         /// <returns>The updated data</returns>
-        public virtual TData Update(TData data)
+        public virtual TData Update(int id, TData data)
         {
-            var dataId = GetDataId(data);
-            if (this.dataSet.ContainsKey(dataId))
+            if (this.dataSet.ContainsKey(id))
             {
-                this.dataSet[dataId] = data;
+                this.dataSet[id] = data;
             }
             return data;
         }
@@ -170,15 +164,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// <returns>The data identifier</returns>
         private int GetDataId(TData data)
         {
-            int dataId = -1;
-            PropertyInfo propertyId = data.GetType().GetProperties().FirstOrDefault(info => info.Name == "Id");
-
-            if (propertyId != null)
-            {
-                dataId = (int)propertyId.GetValue(data);
-            }
-
-            return dataId;
+            return data.GetHashCode();
         }
     }
 }

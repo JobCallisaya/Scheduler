@@ -56,9 +56,16 @@ namespace MyCompany.Scheduler.Services
         /// <summary>
         /// Updates data in repository.
         /// </summary>
-        /// <param name="data">The data to be updated</param>
-        /// <returns>The updated data</returns>
-        TData Update(TData data);
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="data">
+        /// The data to be updated
+        /// </param>
+        /// <returns>
+        /// The updated data
+        /// </returns>
+        TData Update(int id, TData data);
 
         /// <summary>
         /// Removes all data in repository

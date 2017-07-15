@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StudentController.cs" company="MyCompany">
+// <copyright file="ClassesController.cs" company="MyCompany">
 //   Copyright (c) MyCompany.
 // </copyright>
 // <summary>
-//   The student controller.
+//   The class controller.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -16,46 +16,46 @@ namespace MyCompany.Scheduler.RestApi
     using MyCompany.Scheduler.Services;
 
     /// <summary>
-    /// The student controller.
+    /// The Class controller.
     /// </summary>
     [RoutePrefix("api")]
     [Route("")]
-    public class StudentController : BaseController<Student>
+    public class ClassesController : BaseController<Class>
     {
-        public StudentController(IService<Student> service)
+        public ClassesController(IService<Class> service)
             : base(service)
         {
         }
 
         [HttpPost]
-        [Route("students")]
-        public override IHttpActionResult Create(Student student)
+        [Route("classes")]
+        public override IHttpActionResult Create(Class Class)
         {
-            return base.Create(student);
+            return base.Create(Class);
         }
 
         [HttpPut]
-        [Route("students/{id}")]
-        public override IHttpActionResult Update(int id, Student student)
+        [Route("classes/{id}")]
+        public override IHttpActionResult Update(int id, Class Class)
         {
-            return base.Update(id, student);
+            return base.Update(id, Class);
         }
 
         [HttpDelete]
-        [Route("students/{id}")]
+        [Route("classes/{id}")]
         public override IHttpActionResult Delete(int id)
         {
             return base.Delete(id);
         }
 
         /// <summary>
-        /// The get students.
+        /// The get classes.
         /// </summary>
         /// <returns>
         /// The <see cref="IHttpActionResult"/>.
         /// </returns>
         [HttpGet]
-        [Route("students")]
+        [Route("classes")]
         public override IHttpActionResult Get()
         {
             return base.Get();
