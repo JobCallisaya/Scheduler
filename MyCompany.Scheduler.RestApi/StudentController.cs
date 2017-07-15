@@ -12,12 +12,20 @@ namespace MyCompany.Scheduler.RestApi
     using System.Collections.Generic;
     using System.Web.Http;
 
+    using MyCompany.Scheduler.Data;
+    using MyCompany.Scheduler.Services;
+
     /// <summary>
     /// The student controller.
     /// </summary>
     [RoutePrefix("api")]
-    public class StudentController : BaseController
+    public class StudentController : BaseController<Student>
     {
+        public StudentController(IService<Student> service)
+            : base(service)
+        {
+        }
+
         /// <summary>
         /// The get students.
         /// </summary>
@@ -26,9 +34,16 @@ namespace MyCompany.Scheduler.RestApi
         /// </returns>
         [HttpGet]
         [Route("students")]
-        public IHttpActionResult GetStudents()
+        public override IHttpActionResult Get()
         {
-            return this.Ok(new List<string>(){"Student1", "Student2"});
+            return base.Get();
+        }
+
+        [HttpPost]
+        [Route("students")]
+        public override IHttpActionResult Create(Student student)
+        {
+            return base.Create(student);
         }
     }
 }

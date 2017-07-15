@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IDependencyScope.cs" company="">
+// <copyright file="IDependencyScope.cs" company="MyCompany">
 //   Copyright (c) MyCompany.
 // </copyright>
 // <summary>
