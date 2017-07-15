@@ -13,7 +13,11 @@ namespace MyCompany.Scheduler
 
     using Microsoft.Practices.Unity;
 
+    using MyCompany.Scheduler.Data;
+    using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Memory;
     using MyCompany.Scheduler.RestApi;
+    using MyCompany.Scheduler.Services;
 
     using Owin;
 
@@ -31,6 +35,10 @@ namespace MyCompany.Scheduler
         public static void Register(HttpConfiguration config)
         {
             var unityContainer = new UnityContainer();
+
+            unityContainer.RegisterType<IUnitOfWork, MemoryUnitOfWork>(new HierarchicalLifetimeManager());
+            unityContainer.RegisterType(typeof(IService<>), typeof(BaseService<>));
+
             config.DependencyResolver = new UnityResolver(unityContainer);
         }
 
@@ -43,7 +51,7 @@ namespace MyCompany.Scheduler
         public void Configuration(IAppBuilder appBuilder) 
         { 
             // This loads the controllers in the Rest assembly.
-            var baseController = typeof(BaseController);
+            var baseController = typeof(BaseController<int>);
 
             var httpConfiguration = new HttpConfiguration();
             Register(httpConfiguration);

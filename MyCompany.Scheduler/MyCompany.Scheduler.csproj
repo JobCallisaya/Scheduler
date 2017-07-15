@@ -102,9 +102,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess.Memory\MyCompany.Scheduler.DataAccess.Memory.csproj">
+      <Project>{5C9678F1-39F3-455D-A6FE-8FB998868392}</Project>
+      <Name>MyCompany.Scheduler.DataAccess.Memory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj">
+      <Project>{7069883C-5B19-483F-93C9-3356E4791E32}</Project>
+      <Name>MyCompany.Scheduler.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCompany.Scheduler.Data\MyCompany.Scheduler.Data.csproj">
+      <Project>{D9B138FD-4914-4AA5-A851-04EA1BB9D12B}</Project>
+      <Name>MyCompany.Scheduler.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyCompany.Scheduler.RestApi\MyCompany.Scheduler.RestApi.csproj">
       <Project>{013390aa-c164-4b27-bc61-9d5da54564f2}</Project>
       <Name>MyCompany.Scheduler.RestApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCompany.Scheduler.Services\MyCompany.Scheduler.Services.csproj">
+      <Project>{B15FF156-B71C-4FB1-8324-E3D3A5E5C747}</Project>
+      <Name>MyCompany.Scheduler.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

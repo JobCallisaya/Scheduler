@@ -74,10 +74,21 @@
   <ItemGroup>
     <Compile Include="BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClassController.cs" />
     <Compile Include="StudentController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyCompany.Scheduler.Data\MyCompany.Scheduler.Data.csproj">
+      <Project>{D9B138FD-4914-4AA5-A851-04EA1BB9D12B}</Project>
+      <Name>MyCompany.Scheduler.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCompany.Scheduler.Services\MyCompany.Scheduler.Services.csproj">
+      <Project>{B15FF156-B71C-4FB1-8324-E3D3A5E5C747}</Project>
+      <Name>MyCompany.Scheduler.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
