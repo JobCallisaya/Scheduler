@@ -22,6 +22,8 @@ namespace MyCompany.Scheduler
 
     using Owin;
 
+    using Swashbuckle.Application;
+
     /// <summary>
     /// Configures Web API. This class is specified as a type parameter in the WebApp.Start method.
     /// </summary>
@@ -42,6 +44,7 @@ namespace MyCompany.Scheduler
             
             this.ConfigureDependecyInjection(httpConfiguration);
             this.ConfigureFilters(httpConfiguration.Filters);
+            this.ConfigureSwagger(httpConfiguration);
 
             httpConfiguration.MapHttpAttributeRoutes();
             appBuilder.UseWebApi(httpConfiguration);
@@ -50,10 +53,10 @@ namespace MyCompany.Scheduler
         /// <summary>
         /// The register.
         /// </summary>
-        /// <param name="config">
-        /// The config.
+        /// <param name="httpConfiguration">
+        /// The http Configuration.
         /// </param>
-        public void ConfigureDependecyInjection(HttpConfiguration config)
+        public void ConfigureDependecyInjection(HttpConfiguration httpConfiguration)
         {
             var unityContainer = new UnityContainer();
 
@@ -61,7 +64,7 @@ namespace MyCompany.Scheduler
             unityContainer.RegisterType<StudentController>(new InjectionConstructor(new ResolvedParameter<StudentService>()));
             unityContainer.RegisterType<ClassesController>(new InjectionConstructor(new ResolvedParameter<ClassService>()));
 
-            config.DependencyResolver = new UnityResolver(unityContainer);
+            httpConfiguration.DependencyResolver = new UnityResolver(unityContainer);
         }
 
         /// <summary>
@@ -73,6 +76,19 @@ namespace MyCompany.Scheduler
         public void ConfigureFilters(HttpFilterCollection filters)
         {
             filters.Add(new ExceptionHandler());
+        }
+
+        /// <summary>
+        /// The configur swagger.
+        /// </summary>
+        /// <param name="httpConfiguration">
+        /// The http configuration.
+        /// </param>
+        public void ConfigureSwagger(HttpConfiguration httpConfiguration)
+        {
+            httpConfiguration
+                .EnableSwagger(c => c.SingleApiVersion("v1", "A title for your API"))
+                .EnableSwaggerUi(); 
         }
     } 
 }
