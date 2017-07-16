@@ -9,11 +9,21 @@
 
 namespace MyCompany.Scheduler.Data
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The student.
     /// </summary>
     public class Student
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Student"/> class.
+        /// </summary>
+        public Student()
+        {
+            this.Classes = new List<Class>();
+        }
+
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
@@ -29,6 +39,17 @@ namespace MyCompany.Scheduler.Data
         /// </summary>
         public string LastName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the classes.
+        /// </summary>
+        public List<Class> Classes { get; set; }
+
+        /// <summary>
+        /// The get hash code.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public override int GetHashCode()
         {
             return this.Id;

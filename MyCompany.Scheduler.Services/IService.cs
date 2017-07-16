@@ -10,7 +10,11 @@
 namespace MyCompany.Scheduler.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+
+    using MyCompany.Scheduler.Data;
+    using MyCompany.Scheduler.DataAccess;
 
     /// <summary>
     /// The Service interface.
@@ -31,6 +35,8 @@ namespace MyCompany.Scheduler.Services
         /// <param name="id">The data identifier</param>
         /// <returns>The data with identifier id</returns>
         TData Get(int id);
+        
+        IEnumerable<TData> Get(List<CustomExpression> filter);
 
         /// <summary>
         /// Adds data to repository

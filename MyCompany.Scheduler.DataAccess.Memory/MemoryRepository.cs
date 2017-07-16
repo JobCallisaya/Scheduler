@@ -7,20 +7,19 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.DataAccess.InMemory
+namespace MyCompany.Scheduler.DataAccess.Memory
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
-    using global::MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
-
     /// <summary>
     /// Represents a repository. Holds a collection of data and provides actions over this data.
     /// </summary>
     /// <typeparam name="TData">The data type</typeparam>
-    public class MemoryRepository<TData> : IRepository<TData> where TData : class
+    public class MemoryRepository<TData> : IRepository<TData>
+        where TData : class
     {
         /// <summary>
         /// The data set.
@@ -45,6 +44,20 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         public virtual IQueryable<TData> Get()
         {
             return this.dataSet.Values.AsQueryable();
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public virtual IEnumerable<TData> Get(List<CustomExpression> filter)
+        {
+            return this.dataSet.Values.ToList().Where(data => this.Matches(data, filter));
         }
 
         /// <summary>
@@ -96,7 +109,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// <returns>The added data</returns>
         public virtual TData Add(TData data)
         {
-            var dataId = GetDataId(data);
+            var dataId = this.GetDataId(data);
             this.dataSet.Add(dataId, data);
             return data;
         }
@@ -112,6 +125,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
             {
                 this.dataSet[id] = data;
             }
+
             return data;
         }
 
@@ -122,7 +136,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// <returns>The removed data</returns>
         public virtual TData Remove(TData data)
         {
-            var dataId = GetDataId(data);
+            var dataId = this.GetDataId(data);
 
             if (this.dataSet.ContainsKey(dataId))
             {
@@ -165,6 +179,52 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         private int GetDataId(TData data)
         {
             return data.GetHashCode();
+        }
+
+        /// <summary>
+        /// The matches.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="expression">
+        /// The expression.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool Matches(TData data, CustomExpression expression)
+        {
+            bool result = false;
+            Type type = typeof(TData);
+            foreach (var property in type.GetProperties())
+            {
+                var propertyValue = property.GetValue(data).ToString();
+                if (property.Name == expression.Field &&
+                    propertyValue == expression.Value)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// The matches.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool Matches(TData data, List<CustomExpression> filter)
+        {
+            return filter.TrueForAll(expression => this.Matches(data, expression));
         }
     }
 }

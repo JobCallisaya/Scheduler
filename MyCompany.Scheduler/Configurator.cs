@@ -37,7 +37,10 @@ namespace MyCompany.Scheduler
             var unityContainer = new UnityContainer();
 
             unityContainer.RegisterType<IUnitOfWork, MemoryUnitOfWork>(new HierarchicalLifetimeManager());
-            unityContainer.RegisterType(typeof(IService<>), typeof(BaseService<>));
+            unityContainer.RegisterType<StudentController>(
+                new InjectionConstructor(new ResolvedParameter<StudentService>()));
+            unityContainer.RegisterType<ClassesController>(
+                new InjectionConstructor(new ResolvedParameter<ClassService>()));
 
             config.DependencyResolver = new UnityResolver(unityContainer);
         }
@@ -51,7 +54,7 @@ namespace MyCompany.Scheduler
         public void Configuration(IAppBuilder appBuilder) 
         { 
             // This loads the controllers in the Rest assembly.
-            var baseController = typeof(BaseController<int>);
+            var baseController = typeof(BaseController<int, int>);
 
             var httpConfiguration = new HttpConfiguration();
             Register(httpConfiguration);

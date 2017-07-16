@@ -9,9 +9,12 @@
 
 namespace MyCompany.Scheduler.Services
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using MyCompany.Scheduler.Commons;
+    using MyCompany.Scheduler.Data;
     using MyCompany.Scheduler.DataAccess;
     using MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
 
@@ -119,6 +122,11 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         public void Dispose()
         {   
+        }
+
+        public IEnumerable<TData> Get(List<CustomExpression> filter)
+        {
+            return this.repository.Get(filter);
         }
     }
 }
