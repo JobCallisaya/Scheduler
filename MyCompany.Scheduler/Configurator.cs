@@ -10,13 +10,14 @@
 namespace MyCompany.Scheduler
 {
     using System.Web.Http;
+    using System.Web.Http.Filters;
 
     using Microsoft.Practices.Unity;
 
-    using MyCompany.Scheduler.Data;
     using MyCompany.Scheduler.DataAccess;
     using MyCompany.Scheduler.DataAccess.Memory;
     using MyCompany.Scheduler.RestApi;
+    using MyCompany.Scheduler.RestApi.ExceptionHandling;
     using MyCompany.Scheduler.Services;
 
     using Owin;
@@ -26,25 +27,6 @@ namespace MyCompany.Scheduler
     /// </summary>
     public class Configurator
     {
-        /// <summary>
-        /// The register.
-        /// </summary>
-        /// <param name="config">
-        /// The config.
-        /// </param>
-        public static void Register(HttpConfiguration config)
-        {
-            var unityContainer = new UnityContainer();
-
-            unityContainer.RegisterType<IUnitOfWork, MemoryUnitOfWork>(new HierarchicalLifetimeManager());
-            unityContainer.RegisterType<StudentController>(
-                new InjectionConstructor(new ResolvedParameter<StudentService>()));
-            unityContainer.RegisterType<ClassesController>(
-                new InjectionConstructor(new ResolvedParameter<ClassService>()));
-
-            config.DependencyResolver = new UnityResolver(unityContainer);
-        }
-
         /// <summary>
         /// The configuration.
         /// </summary>
@@ -57,9 +39,40 @@ namespace MyCompany.Scheduler
             var baseController = typeof(BaseController<int, int>);
 
             var httpConfiguration = new HttpConfiguration();
-            Register(httpConfiguration);
+            
+            this.ConfigureDependecyInjection(httpConfiguration);
+            this.ConfigureFilters(httpConfiguration.Filters);
+
             httpConfiguration.MapHttpAttributeRoutes();
             appBuilder.UseWebApi(httpConfiguration);
+        }
+
+        /// <summary>
+        /// The register.
+        /// </summary>
+        /// <param name="config">
+        /// The config.
+        /// </param>
+        public void ConfigureDependecyInjection(HttpConfiguration config)
+        {
+            var unityContainer = new UnityContainer();
+
+            unityContainer.RegisterType<IUnitOfWork, MemoryUnitOfWork>(new HierarchicalLifetimeManager());
+            unityContainer.RegisterType<StudentController>(new InjectionConstructor(new ResolvedParameter<StudentService>()));
+            unityContainer.RegisterType<ClassesController>(new InjectionConstructor(new ResolvedParameter<ClassService>()));
+
+            config.DependencyResolver = new UnityResolver(unityContainer);
+        }
+
+        /// <summary>
+        /// The configure filters.
+        /// </summary>
+        /// <param name="filters">
+        /// The filters.
+        /// </param>
+        public void ConfigureFilters(HttpFilterCollection filters)
+        {
+            filters.Add(new ExceptionHandler());
         }
     } 
 }

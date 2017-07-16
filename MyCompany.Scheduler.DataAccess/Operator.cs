@@ -15,7 +15,7 @@ namespace MyCompany.Scheduler.DataAccess
     public enum Operator
     {
         /// <summary>
-        /// The equals.
+        /// The equals operator.
         /// </summary>
         Equals
     }

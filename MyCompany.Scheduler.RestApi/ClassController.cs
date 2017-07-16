@@ -25,60 +25,15 @@ namespace MyCompany.Scheduler.RestApi
     [Route("")]
     public class ClassesController : BaseController<Class, ClassDto>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassesController"/> class.
+        /// </summary>
+        /// <param name="service">
+        /// The service.
+        /// </param>
         public ClassesController(IService<Class> service)
             : base(service)
         {   
-        }
-
-        /// <summary>
-        /// The create.
-        /// </summary>
-        /// <param name="Class">
-        /// The class.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
-        /// </returns>
-        [HttpPost]
-        [Route("classes")]
-        public override IHttpActionResult Create(ClassDto Class)
-        {
-            return base.Create(Class);
-        }
-
-        /// <summary>
-        /// The update.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="Class">
-        /// The class.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
-        /// </returns>
-        [HttpPut]
-        [Route("classes/{id}")]
-        public override IHttpActionResult Update(int id, ClassDto Class)
-        {
-            return base.Update(id, Class);
-        }
-
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
-        /// </returns>
-        [HttpDelete]
-        [Route("classes/{id}")]
-        public override IHttpActionResult Delete(int id)
-        {
-            return base.Delete(id);
         }
 
         /// <summary>
@@ -92,6 +47,22 @@ namespace MyCompany.Scheduler.RestApi
         public override IHttpActionResult Get()
         {
             return base.Get();
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHttpActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        [Route("classes/filter")]
+        public override IHttpActionResult Get(List<CustomExpression> filter)
+        {
+            return base.Get(filter);
         }
 
         /// <summary>
@@ -109,6 +80,55 @@ namespace MyCompany.Scheduler.RestApi
         {
             var classService = (ClassService)this.Service;
             return this.Ok(classService.GetStudents(classId).Select(student => (StudentDto)student));
+        }
+
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="classDto">
+        /// The class.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHttpActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        [Route("classes")]
+        public override IHttpActionResult Create(ClassDto classDto)
+        {
+            return base.Create(classDto);
+        }
+
+        /// <summary>
+        /// The update.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="classDto">The class</param>
+        /// <returns>
+        /// The <see cref="IHttpActionResult"/>.
+        /// </returns>
+        [HttpPut]
+        [Route("classes/{id}")]
+        public override IHttpActionResult Update(int id, ClassDto classDto)
+        {
+            return base.Update(id, classDto);
+        }
+
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHttpActionResult"/>.
+        /// </returns>
+        [HttpDelete]
+        [Route("classes/{id}")]
+        public override IHttpActionResult Delete(int id)
+        {
+            return base.Delete(id);
         }
 
         /// <summary>
@@ -130,22 +150,6 @@ namespace MyCompany.Scheduler.RestApi
             var classService = (ClassService)this.Service;
             classService.AddStudentToClass(classId, studentId);
             return this.Ok();
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="filter">
-        /// The filter.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
-        /// </returns>
-        [HttpPost]
-        [Route("classes/filter")]
-        public override IHttpActionResult Get(List<CustomExpression> filter)
-        {
-            return base.Get(filter);
         }
 
         /// <summary>

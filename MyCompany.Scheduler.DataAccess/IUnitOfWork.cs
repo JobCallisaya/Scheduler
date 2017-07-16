@@ -10,8 +10,6 @@
 
 namespace MyCompany.Scheduler.DataAccess
 {
-    using global::MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
-
     /// <summary>
     /// Represents a unit of work. Encapsulates changes made on the repositories associated to this, allowing to save 
     /// these changes at once.

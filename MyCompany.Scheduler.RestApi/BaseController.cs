@@ -21,16 +21,13 @@ namespace MyCompany.Scheduler.RestApi
     /// The base controller.
     /// </summary>
     /// <typeparam name="TData">
+    /// The data type parameter.
     /// </typeparam>
     /// <typeparam name="TDataDto">
+    /// The data transfer object type parameter.
     /// </typeparam>
     public abstract class BaseController<TData, TDataDto> : ApiController
     {
-        /// <summary>
-        /// Gets the service.
-        /// </summary>
-        protected IService<TData> Service { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseController{TData,TDataDto}"/> class.
         /// </summary>
@@ -41,6 +38,11 @@ namespace MyCompany.Scheduler.RestApi
         {
             this.Service = service;
         }
+
+        /// <summary>
+        /// Gets the service.
+        /// </summary>
+        protected IService<TData> Service { get; private set; }
 
         /// <summary>
         /// The get.
@@ -64,7 +66,7 @@ namespace MyCompany.Scheduler.RestApi
         /// </returns>
         public virtual IHttpActionResult Get(List<CustomExpression> filter)
         {
-            return this.Ok(this.Service.Get(filter).Select(data => this.Adapt(data)));
+            return this.Ok(this.Service.Get(filter).Select(this.Adapt));
         }
 
         /// <summary>
@@ -109,7 +111,7 @@ namespace MyCompany.Scheduler.RestApi
         /// </returns>
         public virtual IHttpActionResult Update(int id, TDataDto data)
         {
-            return this.Ok(this.Adapt(this.Service.Update(id, Adapt(data))));
+            return this.Ok(this.Adapt(this.Service.Update(id, this.Adapt(data))));
         }
 
         /// <summary>

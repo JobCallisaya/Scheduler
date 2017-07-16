@@ -75,6 +75,7 @@
     <Compile Include="BaseController.cs" />
     <Compile Include="Dtos\ClassDto.cs" />
     <Compile Include="Dtos\StudentDto.cs" />
+    <Compile Include="ExceptionHandling\ExceptionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClassController.cs" />
     <Compile Include="StudentController.cs" />

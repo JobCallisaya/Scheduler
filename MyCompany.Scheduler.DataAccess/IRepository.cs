@@ -35,7 +35,7 @@ namespace MyCompany.Scheduler.DataAccess
         TData Get(int id);
 
         /// <summary>
-        /// Gets data by an specified filter, orders the data given a function and retreives the specified properties
+        /// Gets data by an specified filter, orders the data given a function and retrieves the specified properties
         /// </summary>
         /// <param name="filter">The filter</param>
         /// <param name="orderBy">The orderBy function</param>
@@ -67,8 +67,15 @@ namespace MyCompany.Scheduler.DataAccess
         /// <summary>
         /// Updates data in the repository
         /// </summary>
-        /// <param name="data">The data to be updated</param>
-        /// <returns>The updated data</returns>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="data">
+        /// The data to be updated
+        /// </param>
+        /// <returns>
+        /// The updated data
+        /// </returns>
         TData Update(int id, TData data);
 
         /// <summary>

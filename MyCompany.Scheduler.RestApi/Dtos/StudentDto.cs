@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="StudentDto.cs" company="MyCompany">
+//   Copyright (c) MyCompany.
+// </copyright>
+// <summary>
+//   Defines the StudentDto type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace MyCompany.Scheduler.RestApi.Dtos
 {
     using MyCompany.Scheduler.Data;
 
+    /// <summary>
+    /// The student DTO.
+    /// </summary>
     public class StudentDto
     {
         /// <summary>
