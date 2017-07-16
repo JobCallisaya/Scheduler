@@ -7,20 +7,19 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.DataAccess.InMemory
+namespace MyCompany.Scheduler.DataAccess.Memory
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
-    using global::MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
-
     /// <summary>
     /// Represents a repository. Holds a collection of data and provides actions over this data.
     /// </summary>
     /// <typeparam name="TData">The data type</typeparam>
-    public class MemoryRepository<TData> : IRepository<TData> where TData : class
+    public class MemoryRepository<TData> : IRepository<TData>
+        where TData : class
     {
         /// <summary>
         /// The data set.
@@ -48,6 +47,20 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         }
 
         /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public virtual IEnumerable<TData> Get(List<CustomExpression> filter)
+        {
+            return this.dataSet.Values.ToList().Where(data => this.Matches(data, filter));
+        }
+
+        /// <summary>
         /// Gets data with identifier id
         /// </summary>
         /// <param name="id">The data identifier</param>
@@ -65,7 +78,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         }
 
         /// <summary>
-        /// Gets data by an specified filter, orders the data given a function and retreives the specified properties
+        /// Gets data by an specified filter, orders the data given a function and retrieves the specified properties
         /// </summary>
         /// <param name="filter">The filter</param>
         /// <param name="orderBy">The orderBy function</param>
@@ -96,7 +109,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// <returns>The added data</returns>
         public virtual TData Add(TData data)
         {
-            var dataId = GetDataId(data);
+            var dataId = this.GetDataId(data);
             this.dataSet.Add(dataId, data);
             return data;
         }
@@ -104,14 +117,22 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// <summary>
         /// Updates data in the repository
         /// </summary>
-        /// <param name="data">The data to be updated</param>
-        /// <returns>The updated data</returns>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="data">
+        /// The data to be updated
+        /// </param>
+        /// <returns>
+        /// The updated data
+        /// </returns>
         public virtual TData Update(int id, TData data)
         {
             if (this.dataSet.ContainsKey(id))
             {
                 this.dataSet[id] = data;
             }
+
             return data;
         }
 
@@ -122,7 +143,7 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         /// <returns>The removed data</returns>
         public virtual TData Remove(TData data)
         {
-            var dataId = GetDataId(data);
+            var dataId = this.GetDataId(data);
 
             if (this.dataSet.ContainsKey(dataId))
             {
@@ -165,6 +186,52 @@ namespace MyCompany.Scheduler.DataAccess.InMemory
         private int GetDataId(TData data)
         {
             return data.GetHashCode();
+        }
+
+        /// <summary>
+        /// The matches.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="expression">
+        /// The expression.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool Matches(TData data, CustomExpression expression)
+        {
+            bool result = false;
+            Type type = typeof(TData);
+            foreach (var property in type.GetProperties())
+            {
+                var propertyValue = property.GetValue(data).ToString();
+                if (property.Name == expression.Field &&
+                    propertyValue == expression.Value)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// The matches.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool Matches(TData data, List<CustomExpression> filter)
+        {
+            return filter.TrueForAll(expression => this.Matches(data, expression));
         }
     }
 }

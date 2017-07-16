@@ -1,29 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Student.cs" company="MyCompany">
+// <copyright file="StudentDto.cs" company="MyCompany">
 //   Copyright (c) MyCompany.
 // </copyright>
 // <summary>
-//   Defines the Student type.
+//   Defines the StudentDto type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.Data
+namespace MyCompany.Scheduler.RestApi.Dtos
 {
-    using System.Collections.Generic;
+    using MyCompany.Scheduler.Data;
 
     /// <summary>
-    /// The student.
+    /// The student DTO.
     /// </summary>
-    public class Student
+    public class StudentDto
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Student"/> class.
-        /// </summary>
-        public Student()
-        {
-            this.Classes = new List<Class>();
-        }
-
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
@@ -40,19 +32,29 @@ namespace MyCompany.Scheduler.Data
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the classes.
+        /// The op_ implicit.
         /// </summary>
-        public List<Class> Classes { get; set; }
+        /// <param name="student">
+        /// The student.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator Student(StudentDto student)
+        {
+            return new Student() { Id = student.Id, FirstName = student.FirstName, LastName = student.LastName };
+        }
 
         /// <summary>
-        /// The get hash code.
+        /// The op_ implicit.
         /// </summary>
+        /// <param name="student">
+        /// The student.
+        /// </param>
         /// <returns>
-        /// The <see cref="int"/>.
         /// </returns>
-        public override int GetHashCode()
+        public static implicit operator StudentDto(Student student)
         {
-            return this.Id;
+            return new StudentDto() { Id = student.Id, FirstName = student.FirstName, LastName = student.LastName };
         }
     }
 }

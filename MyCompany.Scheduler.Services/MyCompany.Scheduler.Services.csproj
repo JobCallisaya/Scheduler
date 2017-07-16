@@ -42,6 +42,8 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClassService.cs" />
+    <Compile Include="StudentService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyCompany.Scheduler.Commons\MyCompany.Scheduler.Commons.csproj">
@@ -51,6 +53,10 @@
     <ProjectReference Include="..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj">
       <Project>{7069883C-5B19-483F-93C9-3356E4791E32}</Project>
       <Name>MyCompany.Scheduler.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyCompany.Scheduler.Data\MyCompany.Scheduler.Data.csproj">
+      <Project>{D9B138FD-4914-4AA5-A851-04EA1BB9D12B}</Project>
+      <Name>MyCompany.Scheduler.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

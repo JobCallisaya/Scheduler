@@ -9,11 +9,11 @@
 
 namespace MyCompany.Scheduler.Services
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using MyCompany.Scheduler.Commons;
     using MyCompany.Scheduler.DataAccess;
-    using MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
 
     /// <summary>
     /// The base manager with which to manage one type of data
@@ -99,8 +99,15 @@ namespace MyCompany.Scheduler.Services
         /// <summary>
         /// Updates data in repository.
         /// </summary>
-        /// <param name="data">The data to be updated</param>
-        /// <returns>The updated data</returns>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="data">
+        /// The data to be updated
+        /// </param>
+        /// <returns>
+        /// The updated data
+        /// </returns>
         public virtual TData Update(int id, TData data)
         {
             return this.repository.Update(id, data);
@@ -119,6 +126,20 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         public void Dispose()
         {   
+        }
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public IEnumerable<TData> Get(List<CustomExpression> filter)
+        {
+            return this.repository.Get(filter);
         }
     }
 }

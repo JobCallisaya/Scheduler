@@ -1,29 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Class.cs" company="MyCompany">
+// <copyright file="ClassDto.cs" company="//   Copyright (c) MyCompany.">
 //   Copyright (c) MyCompany.
 // </copyright>
 // <summary>
-//   Defines the Class type.
+//   Defines the ClassDto type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.Data
+namespace MyCompany.Scheduler.RestApi.Dtos
 {
-    using System.Collections.Generic;
+    using MyCompany.Scheduler.Data;
 
     /// <summary>
-    /// The class.
+    /// The class DTO.
     /// </summary>
-    public class Class
+    public class ClassDto
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Class"/> class.
-        /// </summary>
-        public Class()
-        {
-            this.Students = new List<Student>();
-        }
-
         /// <summary>
         /// Gets or sets the code.
         /// </summary>
@@ -40,19 +32,29 @@ namespace MyCompany.Scheduler.Data
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the students.
+        /// The op_ implicit.
         /// </summary>
-        public List<Student> Students { get; set; }
+        /// <param name="clase">
+        /// The class.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator Class(ClassDto clase)
+        {
+            return new Class() { Code = clase.Code, Title = clase.Title, Description = clase.Description};
+        }
 
         /// <summary>
-        /// The get hash code.
+        /// The op_ implicit.
         /// </summary>
+        /// <param name="clase">
+        /// The class.
+        /// </param>
         /// <returns>
-        /// The <see cref="int"/>.
         /// </returns>
-        public override int GetHashCode()
+        public static implicit operator ClassDto(Class clase)
         {
-            return this.Code;
+            return new ClassDto() { Code = clase.Code, Title = clase.Title, Description = clase.Description};
         }
     }
 }

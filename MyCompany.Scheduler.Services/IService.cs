@@ -10,12 +10,16 @@
 namespace MyCompany.Scheduler.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+
+    using MyCompany.Scheduler.DataAccess;
 
     /// <summary>
     /// The Service interface.
     /// </summary>
     /// <typeparam name="TData">
+    /// The data type parameter.
     /// </typeparam>
     public interface IService<TData> : IDisposable
     {
@@ -31,6 +35,17 @@ namespace MyCompany.Scheduler.Services
         /// <param name="id">The data identifier</param>
         /// <returns>The data with identifier id</returns>
         TData Get(int id);
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        IEnumerable<TData> Get(List<CustomExpression> filter);
 
         /// <summary>
         /// Adds data to repository

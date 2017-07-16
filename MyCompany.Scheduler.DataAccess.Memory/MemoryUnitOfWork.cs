@@ -12,9 +12,6 @@ namespace MyCompany.Scheduler.DataAccess.Memory
     using System;
     using System.Collections.Generic;
 
-    using global::MyCompany.Scheduler.DataAccess.InMemory;
-    using global::MyCompany.Scheduler.DataAccess.MyCompany.Scheduler.DataAccess;
-
     /// <summary>
     /// EF Implementation of a unit of work
     /// </summary>
@@ -43,21 +40,21 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         }
 
         /// <summary>
-        /// Gets a repository for a given DataType.
+        /// Gets a repository for a given TData.
         /// </summary>
-        /// <typeparam name="DataType">The DataType for which we want a repository</typeparam>
-        /// <returns>The repository for DataType</returns>
-        public IRepository<DataType> GetRepository<DataType>() where DataType : class
+        /// <typeparam name="TData">The TData for which we want a repository</typeparam>
+        /// <returns>The repository for TData</returns>
+        public IRepository<TData> GetRepository<TData>() where TData : class
         {
-            IRepository<DataType> repository = null;
-            if (repositories.ContainsKey(typeof(DataType)))
+            IRepository<TData> repository = null;
+            if (repositories.ContainsKey(typeof(TData)))
             {
-                repository = repositories[typeof(DataType)] as IRepository<DataType>;
+                repository = repositories[typeof(TData)] as IRepository<TData>;
             }
             else
             {
-                repository = new MemoryRepository<DataType>();
-                repositories[typeof(DataType)] = repository;
+                repository = new MemoryRepository<TData>();
+                repositories[typeof(TData)] = repository;
             }
 
             return repository;
