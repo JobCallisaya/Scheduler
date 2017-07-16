@@ -27,7 +27,7 @@ namespace MyCompany.Scheduler.Services
         /// </param>
         public StudentService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
-        {   
+        {
         }
 
         /// <summary>
