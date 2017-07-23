@@ -39,9 +39,9 @@ namespace MyCompany.Scheduler.RestApi.Dtos
         /// </param>
         /// <returns>
         /// </returns>
-        public static implicit operator Class(ClassDto clase)
+        public static implicit operator Clase(ClassDto clase)
         {
-            return new Class() { Code = clase.Code, Title = clase.Title, Description = clase.Description};
+            return new Clase() { Code = clase.Code, Title = clase.Title, Description = clase.Description};
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace MyCompany.Scheduler.RestApi.Dtos
         /// </param>
         /// <returns>
         /// </returns>
-        public static implicit operator ClassDto(Class clase)
+        public static implicit operator ClassDto(Clase clase)
         {
             return new ClassDto() { Code = clase.Code, Title = clase.Title, Description = clase.Description};
         }

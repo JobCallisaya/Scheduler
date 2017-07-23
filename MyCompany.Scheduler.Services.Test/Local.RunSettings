@@ -31,7 +31,7 @@
               <Exclude>
                 <!--extracted from default CodeCoverage.config -->
                 <Function>^std::.*</Function>
-                <Function>^ATL::.*</Function>
+                <Function>^ATL::.*</Function>
                 <Function>.*::__GetTestMethodInfo.*</Function>
                 <Function>.*__CxxPureMSILEntry.*</Function>
                 <Function>^Microsoft::VisualStudio::CppCodeCoverageFramework::.*</Function>

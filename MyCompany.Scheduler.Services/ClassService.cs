@@ -13,11 +13,12 @@ namespace MyCompany.Scheduler.Services
 
     using MyCompany.Scheduler.Data;
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
 
     /// <summary>
     /// The Class service.
     /// </summary>
-    public class ClassService : BaseService<Class>
+    public class ClassService : BaseService<Clase>
     {
         /// <summary>
         /// The student repository.
@@ -47,24 +48,21 @@ namespace MyCompany.Scheduler.Services
         /// </param>
         public void AddStudentToClass(int classId, int studentId)
         {
-            var clase = this.Get(classId);
-            var student = this.studentRepository.Get(studentId);
-            clase.Students.Add(student);
-            student.Classes.Add(clase);
+            ((IClaseRepository)this.Repository).AddStudentToClass(classId, studentId);
         }
 
         /// <summary>
-        /// The get students.
+        /// The get classes.
         /// </summary>
-        /// <param name="classId">
-        /// The class id.
+        /// <param name="studentId">
+        /// The student id.
         /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public List<Student> GetStudents(int classId)
+        public IEnumerable<Student> GetStudents(int classCode)
         {
-            return this.Get(classId).Students;
+            return ((IClaseRepository)this.Repository).GetStudents(classCode);
         }
     }
 }

@@ -14,12 +14,13 @@ namespace MyCompany.Scheduler.DataAccess.Memory
     using System.Linq;
     using System.Linq.Expressions;
 
+    using MyCompany.Scheduler.DataAccess.Common;
+
     /// <summary>
     /// Represents a repository. Holds a collection of data and provides actions over this data.
     /// </summary>
     /// <typeparam name="TData">The data type</typeparam>
-    public class MemoryRepository<TData> : IRepository<TData>
-        where TData : class
+    public class MemoryRepository<TData> : IRepository<TData> where TData : class, new()
     {
         /// <summary>
         /// The data set.
@@ -41,7 +42,7 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// Gets all data from repository
         /// </summary>
         /// <returns>All data from repository</returns>
-        public virtual IQueryable<TData> Get()
+        public virtual IEnumerable<TData> Get()
         {
             return this.dataSet.Values.AsQueryable();
         }
@@ -67,7 +68,7 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// <returns>The data with identifier id</returns>
         public virtual TData Get(int id)
         {
-            TData data = null;
+            TData data = default(TData);
 
             if (this.dataSet.ContainsKey(id))
             {
@@ -78,40 +79,14 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         }
 
         /// <summary>
-        /// Gets data by an specified filter, orders the data given a function and retrieves the specified properties
-        /// </summary>
-        /// <param name="filter">The filter</param>
-        /// <param name="orderBy">The orderBy function</param>
-        /// <param name="properties">The properties</param>
-        /// <returns>A filtered and ordered IEnumerable of data</returns>
-        public virtual IEnumerable<TData> Get(
-            Expression<Func<TData, bool>> filter = null,
-            Func<IQueryable<TData>, IOrderedQueryable<TData>> orderBy = null,
-            params string[] properties)
-        {
-            IEnumerable<TData> result = new List<TData>();
-            IQueryable<TData> query = this.dataSet.Values.AsQueryable();
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            result = orderBy != null ? orderBy(query).ToList() : query.ToList();
-
-            return result;
-        }
-
-        /// <summary>
         /// Adds data to repository
         /// </summary>
         /// <param name="data">The data to be added</param>
         /// <returns>The added data</returns>
-        public virtual TData Add(TData data)
+        public virtual void Add(TData data)
         {
             var dataId = this.GetDataId(data);
             this.dataSet.Add(dataId, data);
-            return data;
         }
 
         /// <summary>
@@ -126,14 +101,12 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// <returns>
         /// The updated data
         /// </returns>
-        public virtual TData Update(int id, TData data)
+        public virtual void Update(int id, TData data)
         {
             if (this.dataSet.ContainsKey(id))
             {
                 this.dataSet[id] = data;
             }
-
-            return data;
         }
 
         /// <summary>
@@ -141,7 +114,7 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// </summary>
         /// <param name="data">The data to be removed</param>
         /// <returns>The removed data</returns>
-        public virtual TData Remove(TData data)
+        public virtual void Remove(TData data)
         {
             var dataId = this.GetDataId(data);
 
@@ -149,8 +122,6 @@ namespace MyCompany.Scheduler.DataAccess.Memory
             {
                 this.dataSet.Remove(dataId);
             }
-
-            return data;
         }
 
         /// <summary>
@@ -158,16 +129,14 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// </summary>
         /// <param name="id">The data identifier</param>
         /// <returns>The removed data</returns>
-        public virtual TData Remove(int id)
+        public virtual void Remove(int id)
         {
-            TData data = null;
+            TData data = default(TData);
             if (this.dataSet.ContainsKey(id))
             {
                 data = this.dataSet[id];
                 this.dataSet.Remove(id);
             }
-
-            return data;
         }
 
         /// <summary>

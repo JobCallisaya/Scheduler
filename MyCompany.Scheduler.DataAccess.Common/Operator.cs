@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.DataAccess
+namespace MyCompany.Scheduler.DataAccess.Common
 {
     /// <summary>
     /// The operator.

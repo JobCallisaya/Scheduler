@@ -14,7 +14,7 @@ namespace MyCompany.Scheduler.RestApi
     using System.Web.Http;
 
     using MyCompany.Scheduler.Data;
-    using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
     using MyCompany.Scheduler.RestApi.Dtos;
     using MyCompany.Scheduler.Services;
 
@@ -25,14 +25,19 @@ namespace MyCompany.Scheduler.RestApi
     [Route("")]
     public class StudentController : BaseController<Student, StudentDto>
     {
+        public StudentController()
+            : base(null, null)
+        {   
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StudentController"/> class.
         /// </summary>
         /// <param name="service">
         /// The service.
         /// </param>
-        public StudentController(IService<Student> service)
-            : base(service)
+        public StudentController(IService<Student> service, IUnitOfWork unitOfWork)
+            : base(service, unitOfWork)
         {
         }
 
@@ -79,7 +84,7 @@ namespace MyCompany.Scheduler.RestApi
         public IHttpActionResult GetClasses(int id)
         {
             var studentService = (StudentService)this.Service;
-            return this.Ok(studentService.GetClasses(id).Select(student => (ClassDto)student));
+            return this.Ok(studentService.GetClases(id).Select(student => (ClassDto)student));
         }
 
         /// <summary>

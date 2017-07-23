@@ -9,13 +9,16 @@
 
 namespace MyCompany.Scheduler
 {
+    using System.Configuration;
     using System.Web.Http;
     using System.Web.Http.Filters;
 
     using Microsoft.Practices.Unity;
 
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
     using MyCompany.Scheduler.DataAccess.Memory;
+    using MyCompany.Scheduler.DataAccess.SqlServer;
     using MyCompany.Scheduler.RestApi;
     using MyCompany.Scheduler.RestApi.ExceptionHandling;
     using MyCompany.Scheduler.Services;
@@ -58,11 +61,16 @@ namespace MyCompany.Scheduler
         /// </param>
         public void ConfigureDependecyInjection(HttpConfiguration httpConfiguration)
         {
+            var connectionSettings = ConfigurationManager.ConnectionStrings["SchedulerConnection"];
+
             var unityContainer = new UnityContainer();
 
-            unityContainer.RegisterType<IUnitOfWork, MemoryUnitOfWork>(new HierarchicalLifetimeManager());
-            unityContainer.RegisterType<StudentController>(new InjectionConstructor(new ResolvedParameter<StudentService>()));
-            unityContainer.RegisterType<ClassesController>(new InjectionConstructor(new ResolvedParameter<ClassService>()));
+            unityContainer.RegisterType<IUnitOfWork, AdoUnitOfWork>(
+                new HierarchicalLifetimeManager(),
+                new InjectionConstructor(new DbConnectionFactory().CreateConnection(connectionSettings)));
+
+            unityContainer.RegisterType<StudentController>(new InjectionConstructor(new ResolvedParameter<StudentService>(), new ResolvedParameter<IUnitOfWork>()));
+            unityContainer.RegisterType<ClassesController>(new InjectionConstructor(new ResolvedParameter<ClassService>(), new ResolvedParameter<IUnitOfWork>()));
 
             httpConfiguration.DependencyResolver = new UnityResolver(unityContainer);
         }

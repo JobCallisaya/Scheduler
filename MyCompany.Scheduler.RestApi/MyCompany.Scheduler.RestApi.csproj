@@ -84,9 +84,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj">
+    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess.Common\MyCompany.Scheduler.DataAccess.Common.csproj">
       <Project>{7069883C-5B19-483F-93C9-3356E4791E32}</Project>
-      <Name>MyCompany.Scheduler.DataAccess</Name>
+      <Name>MyCompany.Scheduler.DataAccess.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyCompany.Scheduler.Data\MyCompany.Scheduler.Data.csproj">
       <Project>{D9B138FD-4914-4AA5-A851-04EA1BB9D12B}</Project>
