@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyCompany.Scheduler.DataAccess")]
+[assembly: AssemblyTitle("MyCompany.Scheduler.DataAccess.SqlServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyCompany.Scheduler.DataAccess")]
+[assembly: AssemblyProduct("MyCompany.Scheduler.DataAccess.SqlServer")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e2f00eba-a9c9-41a0-9f29-fcc09b51d49b")]
+[assembly: Guid("f8c95a05-df0c-4bf6-9e47-35366551de75")]
 
 // Version information for an assembly consists of the following four values:
 //

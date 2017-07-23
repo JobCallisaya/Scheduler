@@ -14,6 +14,7 @@ namespace MyCompany.Scheduler.Services
     using System.Linq;
 
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
 
     /// <summary>
     /// The Service interface.
@@ -27,7 +28,7 @@ namespace MyCompany.Scheduler.Services
         /// Gets all data from repository
         /// </summary>
         /// <returns>All data from repository</returns>
-        IQueryable<TData> Get();
+        IEnumerable<TData> Get();
 
         /// <summary>
         /// Gets data with identifier id
@@ -52,21 +53,21 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         /// <param name="data">The data to be added</param>
         /// <returns>The added data</returns>
-        TData Add(TData data);
+        void Add(TData data);
 
         /// <summary>
         /// Removes data from repository
         /// </summary>
         /// <param name="data">The data to be removed</param>
         /// <returns>The removed data</returns>
-        TData Remove(TData data);
+        void Remove(TData data);
 
         /// <summary>
         /// Removes data from repository with identifier id
         /// </summary>
         /// <param name="id">The data identifier</param>
         /// <returns>The removed data</returns>
-        TData Remove(int id);
+        void Remove(int id);
 
         /// <summary>
         /// Updates data in repository.
@@ -80,7 +81,7 @@ namespace MyCompany.Scheduler.Services
         /// <returns>
         /// The updated data
         /// </returns>
-        TData Update(int id, TData data);
+        void Update(int id, TData data);
 
         /// <summary>
         /// Removes all data in repository

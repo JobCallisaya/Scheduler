@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.DataAccess
+namespace MyCompany.Scheduler.DataAccess.Common
 {
     using System;
     using System.Collections.Generic;
@@ -18,14 +18,13 @@ namespace MyCompany.Scheduler.DataAccess
     /// Represents a repository. Holds a collection of data and provides actions over this data.
     /// </summary>
     /// <typeparam name="TData">The data type</typeparam>
-    public interface IRepository<TData>
-        where TData : class
+    public interface IRepository<TData> where TData : class, new()
     {
         /// <summary>
         /// Gets all data from repository
         /// </summary>
         /// <returns>All data from repository</returns>
-        IQueryable<TData> Get();
+        IEnumerable<TData> Get();
 
         /// <summary>
         /// Gets data with identifier id
@@ -33,18 +32,6 @@ namespace MyCompany.Scheduler.DataAccess
         /// <param name="id">The data identifier</param>
         /// <returns>The data with identifier id</returns>
         TData Get(int id);
-
-        /// <summary>
-        /// Gets data by an specified filter, orders the data given a function and retrieves the specified properties
-        /// </summary>
-        /// <param name="filter">The filter</param>
-        /// <param name="orderBy">The orderBy function</param>
-        /// <param name="properties">The properties</param>
-        /// <returns>A filtered and ordered IEnumerable of data</returns>
-        IEnumerable<TData> Get(
-            Expression<Func<TData, bool>> filter = null,
-            Func<IQueryable<TData>, IOrderedQueryable<TData>> orderBy = null,
-            params string[] properties);
 
         /// <summary>
         /// The get.
@@ -62,7 +49,7 @@ namespace MyCompany.Scheduler.DataAccess
         /// </summary>
         /// <param name="data">The data to be added</param>
         /// <returns>The added data</returns>
-        TData Add(TData data);
+        void Add(TData data);
 
         /// <summary>
         /// Updates data in the repository
@@ -76,21 +63,21 @@ namespace MyCompany.Scheduler.DataAccess
         /// <returns>
         /// The updated data
         /// </returns>
-        TData Update(int id, TData data);
-
-        /// <summary>
-        /// Removes data from repository
-        /// </summary>
-        /// <param name="data">The data</param>
-        /// <returns>The removed data</returns>
-        TData Remove(TData data);
+        void Update(int id, TData data);
 
         /// <summary>
         /// Removes data from repository with identifier id
         /// </summary>
         /// <param name="id">The data identifier</param>
         /// <returns>The removed data</returns>
-        TData Remove(int id);
+        void Remove(int id);
+
+        /// <summary>
+        /// Removes data from repository
+        /// </summary>
+        /// <param name="data">The data</param>
+        /// <returns>The removed data</returns>
+        void Remove(TData data);
 
         /// <summary>
         /// Removes all data in repository

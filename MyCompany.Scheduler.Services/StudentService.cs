@@ -13,6 +13,7 @@ namespace MyCompany.Scheduler.Services
 
     using MyCompany.Scheduler.Data;
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
 
     /// <summary>
     /// The student service.
@@ -31,17 +32,17 @@ namespace MyCompany.Scheduler.Services
         }
 
         /// <summary>
-        /// The get classes.
+        /// The get students.
         /// </summary>
-        /// <param name="studentId">
-        /// The student id.
+        /// <param name="classId">
+        /// The class id.
         /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public List<Class> GetClasses(int studentId)
+        public IEnumerable<Clase> GetClases(int studentId)
         {
-            return this.Get(studentId).Classes;
+            return ((IStudentRepository)this.Repository).GetClases(studentId);
         }
     }
 }

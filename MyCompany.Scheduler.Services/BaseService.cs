@@ -11,25 +11,27 @@ namespace MyCompany.Scheduler.Services
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Remoting.Messaging;
 
     using MyCompany.Scheduler.Commons;
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
 
     /// <summary>
     /// The base manager with which to manage one type of data
     /// </summary>
     /// <typeparam name="TData">The type of data managed by this class</typeparam>
-    public class BaseService<TData> : IService<TData> where TData : class
+    public class BaseService<TData> : IService<TData> where TData : class, new()
     {
         /// <summary>
         /// The unit of work with which to perform changes on data repositories.
         /// </summary>
-        private IUnitOfWork unitOfWork;
+        protected IUnitOfWork UnitOfWork { get; private set; }
 
         /// <summary>
         /// The data repository that will be manipulated by this manager in order to perform operations.
         /// </summary>
-        private IRepository<TData> repository;
+        protected IRepository<TData> Repository { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseService{TData}"/> class. 
@@ -43,17 +45,17 @@ namespace MyCompany.Scheduler.Services
         public BaseService(IUnitOfWork unitOfWork)
         {
             Validator.ValidateNullArgument(unitOfWork, "unitOfWork");
-            this.unitOfWork = unitOfWork;
-            this.repository = unitOfWork.GetRepository<TData>();
+            this.UnitOfWork = unitOfWork;
+            this.Repository = unitOfWork.GetRepository<TData>();
         }
 
         /// <summary>
         /// Gets all data from repository
         /// </summary>
         /// <returns>All data from repository</returns>
-        public virtual IQueryable<TData> Get()
+        public virtual IEnumerable<TData> Get()
         {
-            return this.repository.Get();
+            return this.Repository.Get();
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace MyCompany.Scheduler.Services
         /// <returns>The data with identifier id</returns>
         public virtual TData Get(int id)
         {
-            return this.repository.Get(id);
+            return this.Repository.Get(id);
         }
 
         /// <summary>
@@ -71,9 +73,9 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         /// <param name="data">The data to be added</param>
         /// <returns>The added data</returns>
-        public virtual TData Add(TData data)
+        public virtual void Add(TData data)
         {
-            return this.repository.Add(data);
+            this.Repository.Add(data);
         }
 
         /// <summary>
@@ -81,9 +83,9 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         /// <param name="data">The data to be removed</param>
         /// <returns>The removed data</returns>
-        public virtual TData Remove(TData data)
+        public virtual void Remove(TData data)
         {
-            return this.repository.Remove(data);
+            this.Repository.Remove(data);
         }
 
         /// <summary>
@@ -91,9 +93,9 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         /// <param name="id">The data identifier</param>
         /// <returns>The removed data</returns>
-        public virtual TData Remove(int id)
+        public virtual void Remove(int id)
         {
-            return this.repository.Remove(id);
+            this.Repository.Remove(id);
         }
 
         /// <summary>
@@ -108,9 +110,9 @@ namespace MyCompany.Scheduler.Services
         /// <returns>
         /// The updated data
         /// </returns>
-        public virtual TData Update(int id, TData data)
+        public virtual void Update(int id, TData data)
         {
-            return this.repository.Update(id, data);
+            this.Repository.Update(id, data);
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace MyCompany.Scheduler.Services
         /// </summary>
         public virtual void Remove()
         {
-            this.repository.Remove();
+            this.Repository.Remove();
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace MyCompany.Scheduler.Services
         /// </returns>
         public IEnumerable<TData> Get(List<CustomExpression> filter)
         {
-            return this.repository.Get(filter);
+            return this.Repository.Get(filter);
         }
     }
 }

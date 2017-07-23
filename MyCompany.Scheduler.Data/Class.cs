@@ -14,12 +14,12 @@ namespace MyCompany.Scheduler.Data
     /// <summary>
     /// The class.
     /// </summary>
-    public class Class
+    public class Clase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Class"/> class.
+        /// Initializes a new instance of the <see cref="Clase"/> class.
         /// </summary>
-        public Class()
+        public Clase()
         {
             this.Students = new List<Student>();
         }
@@ -42,7 +42,7 @@ namespace MyCompany.Scheduler.Data
         /// <summary>
         /// Gets or sets the students.
         /// </summary>
-        public List<Student> Students { get; set; }
+        public IEnumerable<Student> Students { get; set; }
 
         /// <summary>
         /// The get hash code.

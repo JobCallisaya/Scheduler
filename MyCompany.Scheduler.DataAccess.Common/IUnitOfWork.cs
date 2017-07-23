@@ -8,7 +8,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MyCompany.Scheduler.DataAccess
+namespace MyCompany.Scheduler.DataAccess.Common
 {
     using System;
 
@@ -23,12 +23,12 @@ namespace MyCompany.Scheduler.DataAccess
         /// </summary>
         /// <typeparam name="TData">The data type that a certain repository handles</typeparam>
         /// <returns>The repository requested for TData</returns>
-        IRepository<TData> GetRepository<TData>() where TData : class;
+        IRepository<TData> GetRepository<TData>() where TData : class, new();
 
         /// <summary>
         /// Saves all of the changes made on all the repositories at once.
         /// </summary>
         /// <returns>The number of data objects changed.</returns>
-        int SaveChanges();
+        void SaveChanges();
     }
 }

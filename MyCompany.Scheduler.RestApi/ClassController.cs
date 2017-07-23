@@ -15,6 +15,7 @@ namespace MyCompany.Scheduler.RestApi
 
     using MyCompany.Scheduler.Data;
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
     using MyCompany.Scheduler.RestApi.Dtos;
     using MyCompany.Scheduler.Services;
 
@@ -23,16 +24,22 @@ namespace MyCompany.Scheduler.RestApi
     /// </summary>
     [RoutePrefix("api")]
     [Route("")]
-    public class ClassesController : BaseController<Class, ClassDto>
+    public class ClassesController : BaseController<Clase, ClassDto>
     {
+        public ClassesController()
+            : base(null, null)
+        {
+            
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassesController"/> class.
         /// </summary>
         /// <param name="service">
         /// The service.
         /// </param>
-        public ClassesController(IService<Class> service)
-            : base(service)
+        public ClassesController(IService<Clase> service, IUnitOfWork unitOfWork)
+            : base(service, unitOfWork)
         {   
         }
 
@@ -149,6 +156,7 @@ namespace MyCompany.Scheduler.RestApi
         {
             var classService = (ClassService)this.Service;
             classService.AddStudentToClass(classId, studentId);
+            this.UnitOfWork.SaveChanges();
             return this.Ok();
         }
 
@@ -161,7 +169,7 @@ namespace MyCompany.Scheduler.RestApi
         /// <returns>
         /// The <see cref="StudentDto"/>.
         /// </returns>
-        protected override ClassDto Adapt(Class data)
+        protected override ClassDto Adapt(Clase data)
         {
             return data;
         }
@@ -175,7 +183,7 @@ namespace MyCompany.Scheduler.RestApi
         /// <returns>
         /// The <see cref="Student"/>.
         /// </returns>
-        protected override Class Adapt(ClassDto data)
+        protected override Clase Adapt(ClassDto data)
         {
             return data;
         }
