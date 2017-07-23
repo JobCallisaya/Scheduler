@@ -21,7 +21,7 @@ namespace MyCompany.Scheduler.Data
         /// </summary>
         public Student()
         {
-            this.Classes = new List<Class>();
+            this.Classes = new List<Clase>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace MyCompany.Scheduler.Data
         /// <summary>
         /// Gets or sets the classes.
         /// </summary>
-        public List<Class> Classes { get; set; }
+        public IEnumerable<Clase> Classes { get; set; }
 
         /// <summary>
         /// The get hash code.

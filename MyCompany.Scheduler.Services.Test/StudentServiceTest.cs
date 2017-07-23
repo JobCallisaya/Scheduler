@@ -13,6 +13,7 @@ namespace MyCompany.Scheduler.Services.Test
 
     using MyCompany.Scheduler.Data;
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
     using MyCompany.Scheduler.DataAccess.Memory;
 
     using NUnit.Framework;

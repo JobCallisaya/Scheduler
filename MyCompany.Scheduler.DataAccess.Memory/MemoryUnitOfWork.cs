@@ -11,11 +11,12 @@ namespace MyCompany.Scheduler.DataAccess.Memory
 {
     using System;
     using System.Collections.Generic;
+    using MyCompany.Scheduler.DataAccess.Common;
 
     /// <summary>
     /// EF Implementation of a unit of work
     /// </summary>
-    public class MemoryUnitOfWork : IUnitOfWork, IDisposable
+    public class MemoryUnitOfWork : IUnitOfWork
     {
         /// <summary>
         /// Dictionary of repositories managed by this unit of work.
@@ -27,9 +28,8 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// </summary>
         /// <returns>The number of objects written to the underlying database.</returns>
         /// <exception cref="System.InvalidOperationException">When context has been disposed.</exception>
-        public int SaveChanges()
+        public void SaveChanges()
         {
-            return 0;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace MyCompany.Scheduler.DataAccess.Memory
         /// </summary>
         /// <typeparam name="TData">The TData for which we want a repository</typeparam>
         /// <returns>The repository for TData</returns>
-        public IRepository<TData> GetRepository<TData>() where TData : class
+        public IRepository<TData> GetRepository<TData>() where TData : class, new()
         {
             IRepository<TData> repository = null;
             if (repositories.ContainsKey(typeof(TData)))

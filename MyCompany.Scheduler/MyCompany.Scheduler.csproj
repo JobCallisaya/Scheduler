@@ -73,6 +73,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -106,13 +107,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess.Common\MyCompany.Scheduler.DataAccess.Common.csproj">
+      <Project>{7069883C-5B19-483F-93C9-3356E4791E32}</Project>
+      <Name>MyCompany.Scheduler.DataAccess.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyCompany.Scheduler.DataAccess.Memory\MyCompany.Scheduler.DataAccess.Memory.csproj">
       <Project>{5C9678F1-39F3-455D-A6FE-8FB998868392}</Project>
       <Name>MyCompany.Scheduler.DataAccess.Memory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj">
-      <Project>{7069883C-5B19-483F-93C9-3356E4791E32}</Project>
-      <Name>MyCompany.Scheduler.DataAccess</Name>
+    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess.SqlServer\MyCompany.Scheduler.DataAccess.Ado.csproj">
+      <Project>{E8FE30A4-D9B9-4BBA-8304-28E560E483FD}</Project>
+      <Name>MyCompany.Scheduler.DataAccess.Ado</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyCompany.Scheduler.Data\MyCompany.Scheduler.Data.csproj">
       <Project>{D9B138FD-4914-4AA5-A851-04EA1BB9D12B}</Project>

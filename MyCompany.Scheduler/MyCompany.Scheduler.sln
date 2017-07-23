@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler", "MyCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.RestApi", "..\MyCompany.Scheduler.RestApi\MyCompany.Scheduler.RestApi.csproj", "{013390AA-C164-4B27-BC61-9D5DA54564F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.DataAccess", "..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj", "{7069883C-5B19-483F-93C9-3356E4791E32}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.Services", "..\MyCompany.Scheduler.Services\MyCompany.Scheduler.Services.csproj", "{B15FF156-B71C-4FB1-8324-E3D3A5E5C747}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.Commons", "..\MyCompany.Scheduler.Commons\MyCompany.Scheduler.Commons.csproj", "{CC5C5846-73F9-432D-88ED-2DD8D82DFA92}"
@@ -20,6 +18,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.Data", "..\MyCompany.Scheduler.Data\MyCompany.Scheduler.Data.csproj", "{D9B138FD-4914-4AA5-A851-04EA1BB9D12B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.Services.Test", "..\MyCompany.Scheduler.Services.Test\MyCompany.Scheduler.Services.Test.csproj", "{316364FB-9E4D-4DF6-9257-C86BD49D4106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.DataAccess.Ado", "..\MyCompany.Scheduler.DataAccess.SqlServer\MyCompany.Scheduler.DataAccess.Ado.csproj", "{E8FE30A4-D9B9-4BBA-8304-28E560E483FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.DataAccess", "..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj", "{EFF70936-8B3F-4982-AC83-E8126C02B1FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompany.Scheduler.DataAccess.Common", "..\MyCompany.Scheduler.DataAccess.Common\MyCompany.Scheduler.DataAccess.Common.csproj", "{7069883C-5B19-483F-93C9-3356E4791E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +39,6 @@ Global
 		{013390AA-C164-4B27-BC61-9D5DA54564F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{013390AA-C164-4B27-BC61-9D5DA54564F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{013390AA-C164-4B27-BC61-9D5DA54564F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7069883C-5B19-483F-93C9-3356E4791E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7069883C-5B19-483F-93C9-3356E4791E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7069883C-5B19-483F-93C9-3356E4791E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7069883C-5B19-483F-93C9-3356E4791E32}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B15FF156-B71C-4FB1-8324-E3D3A5E5C747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B15FF156-B71C-4FB1-8324-E3D3A5E5C747}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B15FF156-B71C-4FB1-8324-E3D3A5E5C747}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,12 +59,26 @@ Global
 		{316364FB-9E4D-4DF6-9257-C86BD49D4106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{316364FB-9E4D-4DF6-9257-C86BD49D4106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{316364FB-9E4D-4DF6-9257-C86BD49D4106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8FE30A4-D9B9-4BBA-8304-28E560E483FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8FE30A4-D9B9-4BBA-8304-28E560E483FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8FE30A4-D9B9-4BBA-8304-28E560E483FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8FE30A4-D9B9-4BBA-8304-28E560E483FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF70936-8B3F-4982-AC83-E8126C02B1FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF70936-8B3F-4982-AC83-E8126C02B1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF70936-8B3F-4982-AC83-E8126C02B1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF70936-8B3F-4982-AC83-E8126C02B1FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7069883C-5B19-483F-93C9-3356E4791E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7069883C-5B19-483F-93C9-3356E4791E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7069883C-5B19-483F-93C9-3356E4791E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7069883C-5B19-483F-93C9-3356E4791E32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7069883C-5B19-483F-93C9-3356E4791E32} = {E276E610-3E74-4C13-A434-ABE08CFC7256}
 		{5C9678F1-39F3-455D-A6FE-8FB998868392} = {E276E610-3E74-4C13-A434-ABE08CFC7256}
+		{E8FE30A4-D9B9-4BBA-8304-28E560E483FD} = {E276E610-3E74-4C13-A434-ABE08CFC7256}
+		{EFF70936-8B3F-4982-AC83-E8126C02B1FC} = {E276E610-3E74-4C13-A434-ABE08CFC7256}
+		{7069883C-5B19-483F-93C9-3356E4791E32} = {E276E610-3E74-4C13-A434-ABE08CFC7256}
 	EndGlobalSection
 EndGlobal

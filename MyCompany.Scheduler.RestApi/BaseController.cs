@@ -15,6 +15,7 @@ namespace MyCompany.Scheduler.RestApi
     using System.Web.Http;
 
     using MyCompany.Scheduler.DataAccess;
+    using MyCompany.Scheduler.DataAccess.Common;
     using MyCompany.Scheduler.Services;
 
     /// <summary>
@@ -34,15 +35,21 @@ namespace MyCompany.Scheduler.RestApi
         /// <param name="service">
         /// The service.
         /// </param>
-        public BaseController(IService<TData> service)
+        public BaseController(IService<TData> service, IUnitOfWork unitOfWork)
         {
             this.Service = service;
+            this.UnitOfWork = unitOfWork;
         }
 
         /// <summary>
         /// Gets the service.
         /// </summary>
         protected IService<TData> Service { get; private set; }
+
+        /// <summary>
+        /// Gets the unit of work.
+        /// </summary>
+        protected IUnitOfWork UnitOfWork { get; private set; }
 
         /// <summary>
         /// The get.
@@ -94,7 +101,9 @@ namespace MyCompany.Scheduler.RestApi
         /// </returns>
         public virtual IHttpActionResult Create(TDataDto data)
         {
-            return this.Content(HttpStatusCode.Created, this.Adapt(this.Service.Add(this.Adapt(data))));
+            this.Service.Add(this.Adapt(data));
+            this.UnitOfWork.SaveChanges();
+            return this.StatusCode(HttpStatusCode.Created);
         }
 
         /// <summary>
@@ -111,7 +120,9 @@ namespace MyCompany.Scheduler.RestApi
         /// </returns>
         public virtual IHttpActionResult Update(int id, TDataDto data)
         {
-            return this.Ok(this.Adapt(this.Service.Update(id, this.Adapt(data))));
+            this.Service.Update(id, this.Adapt(data));
+            this.UnitOfWork.SaveChanges();
+            return this.Ok();
         }
 
         /// <summary>
@@ -126,6 +137,7 @@ namespace MyCompany.Scheduler.RestApi
         public virtual IHttpActionResult Delete(int id)
         {
             this.Service.Remove(id);
+            this.UnitOfWork.SaveChanges();
             return this.Ok();
         }
         
@@ -135,6 +147,7 @@ namespace MyCompany.Scheduler.RestApi
         public new void Dispose()
         {   
             this.Service.Dispose();
+            this.UnitOfWork.Dispose();
         }
 
         /// <summary>

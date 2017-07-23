@@ -44,9 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess\MyCompany.Scheduler.DataAccess.csproj">
+    <ProjectReference Include="..\MyCompany.Scheduler.DataAccess.Common\MyCompany.Scheduler.DataAccess.Common.csproj">
       <Project>{7069883C-5B19-483F-93C9-3356E4791E32}</Project>
-      <Name>MyCompany.Scheduler.DataAccess</Name>
+      <Name>MyCompany.Scheduler.DataAccess.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
